@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<button onclick="connect()">Connect</button>
+<br><br>
+
+<input id="msg" placeholder="Type message">
+<button onclick="sendMsg()">Send</button>
+
+<pre id="log"></pre>
+
+<script>
+let ws;
+
+function connect() {
+  ws = new WebSocket("ws://localhost:8000/ws/session/abc");
+  ws.onmessage = (event) => {
+    document.getElementById("log").textContent +=
+      "Server: " + event.data + "\n";
+  };
+}
+
+function sendMsg() {
+  ws.send(document.getElementById("msg").value);
+}
+</script>
+
+</body>
+</html>
